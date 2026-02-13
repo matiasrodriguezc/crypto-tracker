@@ -1,7 +1,7 @@
 # 1. Usamos Python liviano
 FROM python:3.9-slim
 
-# 2. Evitamos que Python guarde archivos .pyc y bufferee la salida (clave para logs en Docker)
+# 2. Evitamos que Python guarde archivos .pyc y bufferee la salida
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
