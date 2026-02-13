@@ -36,3 +36,9 @@ postgres:
 # Cache (Redis)
 redis:
   image: redis:alpine
+
+grafana:
+  image: grafana/grafana:latest
+  adminPassword: "admin" # Contraseña para entrar (cambiala si querés)
+  service:
+    port: 80

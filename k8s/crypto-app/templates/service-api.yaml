@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-api
+spec:
+  type: {{ .Values.service.type }} # ClusterIP (Interno)
+  ports:
+    - port: {{ .Values.service.port }} # Puerto 80 (Externo del servicio)
+      targetPort: 8000             # Puerto 8000 (Donde escucha Uvicorn)
+      protocol: TCP
+      name: http
+  selector:
+    app: api # Manda tráfico a los pods con etiqueta "api"
