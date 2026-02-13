@@ -13,7 +13,7 @@ provider "aws" {
   access_key                  = "test" # Claves falsas
   secret_key                  = "test"
   
-  # ACÁ ESTÁ EL TRUCO: Redirigimos todo a localhost
+  # Redirigimos todo a localhost
   s3_use_path_style           = true
   skip_credentials_validation = true
   skip_metadata_api_check     = true
