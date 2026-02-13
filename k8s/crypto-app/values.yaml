@@ -16,7 +16,7 @@ service:
   port: 80
 
 ingress:
-  enabled: false # Lo activamos en el próximo paso
+  enabled: false
   className: ""
   annotations: {}
   hosts:
@@ -39,6 +39,6 @@ redis:
 
 grafana:
   image: grafana/grafana:latest
-  adminPassword: "admin" # Contraseña para entrar (cambiala si querés)
+  adminPassword: "admin"
   service:
     port: 80
