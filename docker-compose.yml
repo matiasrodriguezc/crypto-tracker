@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # 1. Nuestra API
+  api:
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    depends_on:
+      - redis
+    networks:
+      - crypto-net
+
+  # 2. Nuestro Worker
+  worker:
+    build: .
+    command: python worker.py
+    depends_on:
+      - redis
+    networks:
+      - crypto-net
+
+  # 3. El Portero
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80" # El único puerto expuesto a tu PC
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+    networks:
+      - crypto-net
+
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"            # Puerto estándar de AWS falso
+      - "4510-4559:4510-4559"  # Rango de puertos extra para servicios
+    environment:
+      - SERVICES=s3,dynamodb   # Solo simulamos S3 y DynamoDB por ahora
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - crypto-net
+
+  # 4. Base de Datos (Cache)
+  redis:
+    image: redis:alpine
+    networks:
+      - crypto-net
+
+  # 5. Base de Datos (Principal - La usaremos en Sprint 1.5)
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: crypto_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - crypto-net
+
+# Volúmenes persistentes
+volumes:
+  postgres_data:
+
+# Red privada para que se hablen entre ellos
+networks:
+  crypto-net:
+    driver: bridge
