@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 import database
 import models
-import schemas # (Todavía no lo creamos, aguantame un segundo)
+import schema
 
 app = FastAPI()
 
@@ -19,7 +19,6 @@ def get_db():
 def read_root():
     return {"message": "Crypto-Tracker API v1.0"}
 
-# --- NUEVO ENDPOINT ---
 @app.get("/prices")
 def get_prices(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     """
