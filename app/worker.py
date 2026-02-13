@@ -3,11 +3,7 @@ import requests
 from database import SessionLocal, engine
 from models import Base, BitcoinPrice
 
-# --- HACK TEMPORAL ---
-# Para este sprint, creamos las tablas automáticamente al iniciar.
-# En el Sprint 2, reemplazaremos esto con Alembic (Migraciones reales).
 Base.metadata.create_all(bind=engine)
-# ---------------------
 
 def get_bitcoin_price():
     try:
