@@ -1,0 +1,38 @@
+# Configuración Global
+replicaCount: 1
+
+image:
+  repository: matiasrodriguezc/crypto-api
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+worker:
+  repository: matiasrodriguezc/crypto-worker
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false # Lo activamos en el próximo paso
+  className: ""
+  annotations: {}
+  hosts:
+    - host: crypto.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+# Base de datos (Postgres)
+postgres:
+  image: postgres:13
+  storage: 1Gi
+  user: user
+  password: password
+  db: crypto_db
+
+# Cache (Redis)
+redis:
+  image: redis:alpine
