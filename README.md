@@ -26,8 +26,7 @@ Ideal para desarrollo local sin Kubernetes.
 2. Levantar todo:
    ```bash
    docker-compose up --build -d
-
-```
+   ```
 
 3. Acceder a la API: `http://localhost:8080/prices`
 
