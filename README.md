@@ -2,7 +2,7 @@
 
 Una plataforma de monitoreo de criptomonedas construida con arquitectura de microservicios, infraestructura como código (IaC) y orquestación en Kubernetes.
 
-![Grafana Dashboard](docs/grafana-dashboard.png)
+
 
 ## 🏗️ Arquitectura
 * **Backend:** FastAPI (Python) expone los datos.
