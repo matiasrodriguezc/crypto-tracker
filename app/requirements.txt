@@ -4,4 +4,4 @@ redis
 requests           # Para consultar la API de Bitcoin
 sqlalchemy         # ORM (Manejo de Base de Datos)
 psycopg2-binary    # Driver de Postgres
-alembic            # Para las migraciones (Lo usamos en el próximo paso)
+alembic            # Para las migraciones
