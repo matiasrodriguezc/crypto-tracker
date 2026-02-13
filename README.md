@@ -1,7 +1,7 @@
 # 🚀 Crypto Tracker: DevOps End-to-End Project
 
 Una plataforma de monitoreo de criptomonedas construida con arquitectura de microservicios, infraestructura como código (IaC) y orquestación en Kubernetes.
-
+![Grafana Dashboard](docs/grafana-dashboard.png)
 
 
 ## 🏗️ Arquitectura
