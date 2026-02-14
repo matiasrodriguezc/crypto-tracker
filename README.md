@@ -1,86 +1,77 @@
 # 🚀 Crypto Tracker: DevOps End-to-End Project
 
-Una plataforma de monitoreo de criptomonedas construida con arquitectura de microservicios, infraestructura como código (IaC) y orquestación en Kubernetes.
+A cryptocurrency monitoring platform built with microservices architecture, Infrastructure as Code (IaC), and Kubernetes orchestration.
 
 ![Grafana Dashboard](docs/grafana-dashboard.png)
 
+## 🏗️ Architecture
 
-## 🏗️ Arquitectura
-* **Backend:** FastAPI (Python) expone los datos.
-* **Worker:** Servicio en segundo plano (Python) que consulta CoinGecko y escribe en DB.
-* **Datos:** PostgreSQL (Persistencia) & Redis (Cache).
-* **Visualización:** Grafana (Dashboards en tiempo real).
-* **Infraestructura:** Terraform (LocalStack para S3/DynamoDB) & Kubernetes (Minikube).
-* **CI/CD:** GitHub Actions (Build Multi-Arch ARM/AMD) -> Docker Hub.
-* **Orquestación:** Helm Charts customizados.
+* **Backend:** FastAPI (Python) exposes the data.
+* **Worker:** Background service (Python) that queries CoinGecko and writes to DB.
+* **Data:** PostgreSQL (Persistence) & Redis (Cache).
+* **Visualization:** Grafana (Real-time dashboards).
+* **Infrastructure:** Terraform (LocalStack for S3/DynamoDB) & Kubernetes (Minikube).
+* **CI/CD:** GitHub Actions (Multi-Arch ARM/AMD Build) -> Docker Hub.
+* **Orchestration:** Custom Helm Charts.
 
-## 🛠️ Tecnologías
+## 🛠️ Technologies
+
 `Python` `Docker` `Kubernetes` `Terraform` `GitHub Actions` `Helm` `Postgres` `Redis` `Grafana`
 
 ---
 
-## 🚀 Cómo correrlo localmente
+## 🚀 How to Run Locally
 
-### Opción A: Modo Docker Compose (Rápido)
-Ideal para desarrollo local sin Kubernetes.
-1. Clonar el repo.
-2. Levantar todo:
+### Option A: Docker Compose Mode (Quick)
+
+Ideal for local development without Kubernetes.
+
+1. Clone the repo.
+2. Start everything:
    ```bash
    docker-compose up --build -d
    ```
+3. Access the API: `http://localhost:8080/prices`
 
-3. Acceder a la API: `http://localhost:8080/prices`
+### Option B: Kubernetes Mode (Full DevOps)
 
-### Opción B: Modo Kubernetes (Full DevOps)
+The complete experience with orchestration.
 
-La experiencia completa con orquestación.
+**Prerequisites:** Minikube, Kubectl, Helm.
 
-**Prerequisitos:** Minikube, Kubectl, Helm.
-
-1. **Iniciar Cluster:**
+1. **Start Cluster:**
 ```bash
 minikube start --driver=docker
-
 ```
 
-
-2. **Desplegar con Helm:**
+2. **Deploy with Helm:**
 ```bash
 helm install v1 ./k8s/crypto-app
-
 ```
 
-
-3. **Acceder a la API:**
-Como usamos `ClusterIP` (seguridad), necesitamos un túnel:
+3. **Access the API:**
+Since we use `ClusterIP` (security), we need a tunnel:
 ```bash
 kubectl port-forward svc/v1-api 8080:80
-# Ver en: http://localhost:8080/prices
-
+# View at: http://localhost:8080/prices
 ```
 
-
-4. **Acceder a Grafana (Dashboard):**
-En otra terminal:
+4. **Access Grafana (Dashboard):**
+In another terminal:
 ```bash
 kubectl port-forward svc/v1-grafana 3000:80
-
 ```
-
-
 * **URL:** `http://localhost:3000`
 * **User/Pass:** `admin` / `admin`
-* **Setup:** Conectar Data Source (Postgres) -> Host: `v1-postgres:5432`
-
-
+* **Setup:** Connect Data Source (Postgres) -> Host: `v1-postgres:5432`
 
 ---
 
-## 📂 Estructura del Proyecto
+## 📂 Project Structure
 
-* `/app`: Código fuente Python (API + Worker).
-* `/k8s`: Helm Chart para despliegue en Kubernetes.
-* `/terraform`: Infraestructura como Código (LocalStack).
-* `.github/workflows`: Pipelines de CI/CD.
+* `/app`: Python source code (API + Worker).
+* `/k8s`: Helm Chart for Kubernetes deployment.
+* `/terraform`: Infrastructure as Code (LocalStack).
+* `.github/workflows`: CI/CD pipelines.
 
 ---
